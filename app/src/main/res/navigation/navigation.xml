@@ -21,10 +21,18 @@
         android:id="@+id/citySelectionFragment"
         android:name="com.example.perfectweather.CitySelectionFragment"
         android:label="city_selection_fragment"
-        tools:layout="@layout/city_selection_fragment" />
+        tools:layout="@layout/city_selection_fragment" >
+        <action
+            android:id="@+id/action_citySelectionFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.perfectweather.SettingsFragment"
         android:label="settings_fragment"
-        tools:layout="@layout/settings_fragment" />
+        tools:layout="@layout/settings_fragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
