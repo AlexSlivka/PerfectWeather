@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.perfectweather.databinding.CitySelectionFragmentBinding
-import com.example.perfectweather.databinding.MainFragmentBinding
 
 class CitySelectionFragment : Fragment() {
 
@@ -23,11 +23,15 @@ class CitySelectionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding.button3.setOnClickListener {
-            findNavController().navigate(R.id.action_citySelectionFragment_to_mainFragment)
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.city_selection_fragment, container, false
+        )
+
+        binding.button3.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_citySelectionFragment_to_mainFragment)
         }
 
-        return inflater.inflate(R.layout.city_selection_fragment, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

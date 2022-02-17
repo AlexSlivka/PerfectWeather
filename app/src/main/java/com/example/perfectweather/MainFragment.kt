@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.perfectweather.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
@@ -23,15 +24,19 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_citySelectionFragment)
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.main_fragment, container, false
+        )
+
+        binding.button.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_mainFragment_to_citySelectionFragment)
         }
 
-        binding.button2.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+        binding.button2.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
         }
 
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
