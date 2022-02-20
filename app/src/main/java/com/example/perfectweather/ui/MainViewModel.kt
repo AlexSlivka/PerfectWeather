@@ -1,11 +1,21 @@
-package com.example.perfectweather
+package com.example.perfectweather.ui
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.perfectweather.network.WeatherNowApi
+import kotlinx.coroutines.launch
+
+//DateUtils.formatElapsedTime
 
 class MainViewModel : ViewModel() {
+
+  /*  val currentTimeString = Transformations.map(currentTime) { time ->
+        DateUtils.formatElapsedTime(time)
+    }*/
+
     // The current _word
     private val _word = MutableLiveData<String>()
 
@@ -36,12 +46,14 @@ class MainViewModel : ViewModel() {
     }
 
     fun onCorrect() {
-        if (wordList.isEmpty()) {
-            Log.i("MainViewModel", "(wordList Empty!")
-
-        } else {
-            //Select and remove a _word from the list
-            _word.value = wordList.removeAt(0)
+        viewModelScope.launch {
+            try {
+                val listResult = WeatherNowApi.retrofitService.getProperties()
+                _word.value = "Success: $listResult Weather properties retrieved"
+            } catch (e: Exception) {
+                _word.value = "Failure: ${e.message}"
+            }
         }
     }
+
 }

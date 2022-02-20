@@ -1,4 +1,4 @@
-package com.example.perfectweather
+package com.example.perfectweather.ui
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.example.perfectweather.R
 import com.example.perfectweather.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
@@ -58,5 +59,7 @@ class MainFragment : Fragment() {
     private fun onCorrect() {
         viewModel.onCorrect()
     }
+
+
 
 }

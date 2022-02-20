@@ -1,4 +1,4 @@
-package com.example.perfectweather
+package com.example.perfectweather.ui
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.example.perfectweather.R
 import com.example.perfectweather.databinding.CitySelectionFragmentBinding
 
 class CitySelectionFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.perfectweather
+package com.example.perfectweather.ui
 
 import androidx.lifecycle.ViewModel
 
