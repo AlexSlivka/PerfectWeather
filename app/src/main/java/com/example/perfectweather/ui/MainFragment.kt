@@ -6,11 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
+import androidx.databinding.DataBinderMapperImpl
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.example.perfectweather.R
+import com.example.perfectweather.Util
 import com.example.perfectweather.databinding.MainFragmentBinding
+
 
 class MainFragment : Fragment() {
 
@@ -26,15 +31,32 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(
+       binding = DataBindingUtil.inflate(
             inflater, R.layout.main_fragment, container, false
         )
+
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         /** Setting up LiveData observation relationship **/
         viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
             binding.textView.text = newWord
+        })
+
+        viewModel.imageWeb.observe(viewLifecycleOwner, Observer { newImg ->
+
+            binding.textViewImg.text = newImg
+
+            //val imgUri = "http://openweathermap.org/img/wn/10d@2x.png".toUri()
+
+            Glide.with(binding.root)
+                .load(Util.convertIconToRDrawable(newImg))
+                .into(binding.imageViewMain)
+
+          // val  resim = "R.drawable.icon_" + "01d"
+
+           // binding.imageViewMain.setImageResource(R.drawable.icon_ + 01d)
+
         })
 
         binding.button.setOnClickListener { view: View ->
