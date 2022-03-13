@@ -9,6 +9,7 @@ data class WeatherRestModel(
     @Json(name = "icon") val icon: String
 )
 
+
 /*
 "weather": [
     {

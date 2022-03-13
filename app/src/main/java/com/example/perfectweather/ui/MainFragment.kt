@@ -6,16 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
-import androidx.databinding.DataBinderMapperImpl
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.perfectweather.R
 import com.example.perfectweather.Util
 import com.example.perfectweather.databinding.MainFragmentBinding
-
 
 class MainFragment : Fragment() {
 
@@ -24,17 +20,15 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var binding: MainFragmentBinding
+    private var _binding: MainFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-       binding = DataBindingUtil.inflate(
-            inflater, R.layout.main_fragment, container, false
-        )
-
+        _binding = MainFragmentBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -45,7 +39,7 @@ class MainFragment : Fragment() {
 
         viewModel.imageWeb.observe(viewLifecycleOwner, Observer { newImg ->
 
-            binding.textViewImg.text = newImg
+           binding.textViewImg.text = newImg
 
             //val imgUri = "http://openweathermap.org/img/wn/10d@2x.png".toUri()
 
@@ -53,11 +47,19 @@ class MainFragment : Fragment() {
                 .load(Util.convertIconToRDrawable(newImg))
                 .into(binding.imageViewMain)
 
-          // val  resim = "R.drawable.icon_" + "01d"
+            // val  resim = "R.drawable.icon_" + "01d"
 
-           // binding.imageViewMain.setImageResource(R.drawable.icon_ + 01d)
+            // binding.imageViewMain.setImageResource(R.drawable.icon_ + 01d)
 
         })
+
+        viewModel.currentWeather.observe(viewLifecycleOwner, Observer { newCur ->
+
+            binding.textView4.text = newCur.toString()
+
+
+        })
+
 
         binding.button.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_citySelectionFragment)
@@ -74,7 +76,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-    //    viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        //    viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
@@ -82,6 +84,9 @@ class MainFragment : Fragment() {
         viewModel.onCorrect()
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }
