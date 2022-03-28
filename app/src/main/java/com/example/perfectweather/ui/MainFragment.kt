@@ -20,6 +20,14 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    /* private val viewModel: MainViewModel by lazy {
+         val activity = requireNotNull(this.activity) {
+             "You can only access the viewModel after onActivityCreated()"
+         }
+         ViewModelProvider(this, MainViewModelFactory(activity.application))
+             .get(MainViewModel::class.java)
+     }*/
+
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -30,7 +38,15 @@ class MainFragment : Fragment() {
 
         _binding = MainFragmentBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        // viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        val application = requireNotNull(this.activity).application
+
+        // Create an instance of the ViewModel Factory.
+        val viewModelFactory = MainViewModelFactory(application)
+
+        // Get a reference to the ViewModel associated with this fragment.
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         /** Setting up LiveData observation relationship **/
         viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
@@ -39,24 +55,17 @@ class MainFragment : Fragment() {
 
         viewModel.imageWeb.observe(viewLifecycleOwner, Observer { newImg ->
 
-           binding.textViewImg.text = newImg
-
-            //val imgUri = "http://openweathermap.org/img/wn/10d@2x.png".toUri()
+            binding.textViewImg.text = newImg
 
             Glide.with(binding.root)
                 .load(Util.convertIconToRDrawable(newImg))
                 .into(binding.imageViewMain)
-
-            // val  resim = "R.drawable.icon_" + "01d"
-
-            // binding.imageViewMain.setImageResource(R.drawable.icon_ + 01d)
 
         })
 
         viewModel.currentWeather.observe(viewLifecycleOwner, Observer { newCur ->
 
             binding.textView4.text = newCur.toString()
-
 
         })
 

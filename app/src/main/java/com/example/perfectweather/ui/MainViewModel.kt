@@ -1,31 +1,60 @@
 package com.example.perfectweather.ui
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.perfectweather.database.getDatabase
 import com.example.perfectweather.domain.CurrentWeatherData
 import com.example.perfectweather.network.WeatherNowApi
 import com.example.perfectweather.network.entities.asDomainModel
+import com.example.perfectweather.repository.CurrentWeatherRepository
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 //DateUtils.formatElapsedTime
 
 private const val IMG_BASE_URL: String = "http://openweathermap.org/img/wn/"
 private const val IMG_BASE_URL_FINISH: String = "@2x.png"
 
-class MainViewModel : ViewModel() {
+class MainViewModel (application: Application) : AndroidViewModel(application) {
 
     /*  val currentTimeString = Transformations.map(currentTime) { time ->
           DateUtils.formatElapsedTime(time)
       }*/
+    private val currentWeatherRepository = CurrentWeatherRepository(getDatabase(application))
 
     // The current _currentWeather
     private var _currentWeather = MutableLiveData<CurrentWeatherData>()
 
-    val currentWeather: LiveData<CurrentWeatherData>
-        get() = _currentWeather
+    val currentWeather: LiveData<CurrentWeatherData> = currentWeatherRepository.currentWeather
+
+
+    /**
+     * Event triggered for network error. This is private to avoid exposing a
+     * way to set this value to observers.
+     */
+    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+
+    /**
+     * Event triggered for network error. Views should use this to get access
+     * to the data.
+     */
+    val eventNetworkError: LiveData<Boolean>
+        get() = _eventNetworkError
+
+    /**
+     * Flag to display the error message. This is private to avoid exposing a
+     * way to set this value to observers.
+     */
+    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+
+    /**
+     * Flag to display the error message. Views should use this to get access
+     * to the data.
+     */
+    val isNetworkErrorShown: LiveData<Boolean>
+        get() = _isNetworkErrorShown
+
 
     // The current _word
     private val _word = MutableLiveData<String>()
@@ -67,7 +96,8 @@ class MainViewModel : ViewModel() {
 
         Log.i("MainViewModel", "MainViewModel created!")
         resetList()
-        onCorrect()
+            //onCorrect()
+        refreshDataFromRepository()
     }
 
     /**
@@ -95,5 +125,35 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
+    private fun refreshDataFromRepository() {
+        viewModelScope.launch {
+            try {
+                currentWeatherRepository.refreshCurrentWeather()
+                _eventNetworkError.value = false
+                _isNetworkErrorShown.value = false
+
+            } catch (networkError: IOException) {
+                // Show a Toast error message and hide the progress bar.
+                if(currentWeather.value?.nameCity =="")
+                    _eventNetworkError.value = true
+            }
+        }
+    }
+
+    /**
+     * Factory for constructing DevByteViewModel with parameter
+     */
+   /* class MainViewModelFactory(val app: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return MainViewModel(app) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewmodel")
+        }
+    }
+*/
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.perfectweather.network.entities
 
+import com.example.perfectweather.database.DatabaseCurrentWeather
 import com.example.perfectweather.domain.CurrentWeatherData
 import com.squareup.moshi.Json
 
@@ -65,7 +66,28 @@ fun WeatherNowProperty.asDomainModel(): CurrentWeatherData {
         timezone = timezone,
         nameCity = nameCity
     )
+}
 
+fun WeatherNowProperty.asDatabaseModel(): DatabaseCurrentWeather {
+    return DatabaseCurrentWeather(
+        id = id,
+        lon = coordinates.lon,
+        lat = coordinates.lat,
+        descriptionWeather =weatherNow[0].description,
+        iconWeather = weatherNow[0].icon,
+        temp = main.temp.toInt(),
+        feelsLike = main.feelsLike.toInt(),
+        pressure = main.pressure,
+        humidity = main.humidity,
+        speedWind = wind.speed.toInt(),
+        degWind = wind.deg,
+        dateTime = dateTime,
+        country = sys.country,
+        sunrise = sys.sunrise,
+        sunset = sys.sunset,
+        timezone = timezone,
+        nameCity = nameCity
+    )
 }
 
 

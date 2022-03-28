@@ -17,7 +17,7 @@ data class CurrentWeatherData(
     val sunrise: Long,
     val sunset: Long,
     val timezone: Int,
-    val nameCity: String
+    var nameCity: String
 )
 
 /*data class WeatherNowProperty
