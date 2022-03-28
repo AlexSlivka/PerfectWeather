@@ -1,4 +1,4 @@
-package com.example.perfectweather.ui
+package com.example.perfectweather.ui.settings
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,27 +9,27 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.perfectweather.R
-import com.example.perfectweather.databinding.CitySelectionFragmentBinding
+import com.example.perfectweather.databinding.SettingsFragmentBinding
 
-class CitySelectionFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = CitySelectionFragment()
+        fun newInstance() = SettingsFragment()
     }
 
-    private lateinit var viewModel: CitySelectionViewModel
-    private lateinit var binding: CitySelectionFragmentBinding
+    private lateinit var viewModel: SettingsViewModel
+    private lateinit var binding: SettingsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.city_selection_fragment, container, false
+            inflater, R.layout.settings_fragment, container, false
         )
 
-        binding.button3.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_citySelectionFragment_to_mainFragment)
+        binding.button4.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
         }
 
         return binding.root
@@ -37,7 +37,7 @@ class CitySelectionFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CitySelectionViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

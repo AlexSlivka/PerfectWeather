@@ -1,4 +1,4 @@
-package com.example.perfectweather.ui
+package com.example.perfectweather.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -48,27 +48,13 @@ class MainFragment : Fragment() {
         // Get a reference to the ViewModel associated with this fragment.
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        /** Setting up LiveData observation relationship **/
-        viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
-            binding.textView.text = newWord
-        })
-
-        viewModel.imageWeb.observe(viewLifecycleOwner, Observer { newImg ->
-
-            binding.textViewImg.text = newImg
-
-            Glide.with(binding.root)
-                .load(Util.convertIconToRDrawable(newImg))
-                .into(binding.imageViewMain)
-
-        })
-
         viewModel.currentWeather.observe(viewLifecycleOwner, Observer { newCur ->
 
             binding.textView4.text = newCur.toString()
-
+            Glide.with(binding.root)
+                .load(Util.convertIconToRDrawable(newCur.iconWeather))
+                .into(binding.imageViewMain)
         })
-
 
         binding.button.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_citySelectionFragment)
@@ -90,7 +76,7 @@ class MainFragment : Fragment() {
     }
 
     private fun onCorrect() {
-        viewModel.onCorrect()
+
     }
 
     override fun onDestroyView() {
