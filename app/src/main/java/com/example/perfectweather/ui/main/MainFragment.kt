@@ -51,16 +51,24 @@ class MainFragment : Fragment() {
         viewModel.currentWeather.observe(viewLifecycleOwner, Observer { newCur ->
 
             binding.textView4.text = newCur.toString()
+
+            binding.tvCity.text = newCur.nameCity
+            binding.tvCurrentTemp.text = newCur.temp.toString().plus("\u00B0")
             Glide.with(binding.root)
                 .load(Util.convertIconToRDrawable(newCur.iconWeather))
                 .into(binding.imageViewMain)
+
+            binding.tvDescriptionWeather.text = newCur.descriptionWeather
+            binding.tvFeelsLikeTemp.text = newCur.feelsLike.toString().plus("\u00B0")
+
+
         })
 
-        binding.button.setOnClickListener { view: View ->
+        binding.ibCitySelection.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_citySelectionFragment)
         }
 
-        binding.button2.setOnClickListener { view: View ->
+        binding.ibSettings.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
         }
 
