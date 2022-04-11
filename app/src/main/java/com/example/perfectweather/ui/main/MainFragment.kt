@@ -60,6 +60,11 @@ class MainFragment : Fragment() {
 
             binding.tvDescriptionWeather.text = newCur.descriptionWeather
             binding.tvFeelsLikeTemp.text = newCur.feelsLike.toString().plus("\u00B0")
+            binding.tvPressureValue.text=Util.convertPressureGPascalToMmRtStb(newCur.pressure).plus("мм рт.ст.")
+            binding.tvHumidityValue.text=newCur.humidity.toString().plus("%")
+            binding.tvSpeedWindValue.text=newCur.speedWind.toString().plus("м/с")
+            binding.tvDegWindValue.text=newCur.degWind.toString()
+            binding.tvUpdatedValue.text=Util.convertLongToDateString(newCur.dateTime+newCur.timezone)
 
 
         })

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Perfect Weather</string>
     <string name="feels_like_text">Ощущается как:</string>
+    <string name="pressure">Давление</string>
+    <string name="humidity">Влажность</string>
+    <string name="speed_wind">Скорость ветра</string>
+    <string name="deg_wind">Направление ветра</string>
+    <string name="updated_text">Обновлено:</string>
 </resources>

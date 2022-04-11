@@ -99,6 +99,110 @@
             tools:text="-20" />
 
         <TextView
+            android:id="@+id/tv_pressure_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            android:layout_marginTop="32dp"
+            android:text="@string/pressure"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_feels_like_text" />
+
+        <TextView
+            android:id="@+id/tv_pressure_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintBottom_toBottomOf="@id/tv_pressure_text"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical_1"
+            tools:text="600 мм.рт.ст." />
+
+        <TextView
+            android:id="@+id/tv_humidity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            android:layout_marginTop="@dimen/margin_other_weather"
+            android:text="@string/humidity"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_pressure_text" />
+
+        <TextView
+            android:id="@+id/tv_humidity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintBottom_toBottomOf="@id/tv_humidity_text"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical_1"
+            tools:text="60 %" />
+
+        <TextView
+            android:id="@+id/tv_speed_wind_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            android:text="@string/speed_wind"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintBottom_toBottomOf="@id/tv_pressure_text"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_1" />
+
+        <TextView
+            android:id="@+id/tv_speed_wind_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            android:layout_marginEnd="@dimen/margin_other_weather"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintBottom_toBottomOf="@id/tv_speed_wind_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="10 м/c" />
+
+        <TextView
+            android:id="@+id/tv_deg_wind_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            android:text="@string/deg_wind"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintBottom_toBottomOf="@id/tv_humidity_text"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_1" />
+
+        <TextView
+            android:id="@+id/tv_deg_wind_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            android:layout_marginEnd="@dimen/margin_other_weather"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintBottom_toBottomOf="@id/tv_deg_wind_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="10 " />
+
+        <TextView
+            android:id="@+id/tv_updated_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            android:text="@string/updated_text"
+            android:textSize="@dimen/text_other_weather"
+            app:layout_constraintBottom_toTopOf="@id/textView4"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_updated_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_other_weather"
+            android:layout_marginStart="@dimen/margin_other_weather"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_updated_text"
+            app:layout_constraintStart_toEndOf="@+id/tv_updated_text"
+            tools:text="10.22 20 may 2022" />
+
+        <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
