@@ -7,21 +7,6 @@ import java.text.SimpleDateFormat
 private const val TAG: String = "UtilDate"
 
 class Util {
-    /**
-     * Take the Long milliseconds returned by the system and stored in Room,
-     * and convert it to a nicely formatted string for display.
-     *
-     * EEEE - Display the long letter version of the weekday
-     * MMM - Display the letter abbreviation of the nmotny
-     * dd-yyyy - day in month and full year numerically
-     * HH:mm - Hours and minutes in 24hr format
-     */
-//    @SuppressLint("SimpleDateFormat")
-//    fun convertLongToDateString(systemTime: Long): String {
-//        return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
-//            .format(systemTime).toString()
-//    }
-
 
     companion object {
 
@@ -56,8 +41,8 @@ class Util {
             return sdf.format(date).toString()
         }
 
-        fun convertPressureGPascalToMmRtStb(pressure:Int): String{
-            return  ((pressure*75)/100).toString()
+        fun convertPressureGPascalToMmRtStb(pressure: Int): String {
+            return ((pressure * 75) / 100).toString()
         }
 
     }
